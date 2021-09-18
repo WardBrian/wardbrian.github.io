@@ -9,56 +9,44 @@ redirect_from:
 
 {% include base_path %}
 
+My resume is best viewed as a [pdf](/files/Ward_Brian_Resume_Sept21.pdf),
+the following is a high-level overview.
+<br/>
+
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* B.A. in Computer Science and Theatre, Boston College, 2021
 
 Work experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+* Summer 2021 - Present: Software Engineer
+  * Center for Computational Mathematics, Flatiron Institute
+  * Supervisor: Bob Carpenter
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Summer 2020 - Summer 2021: Maximizing Student Potential Intern
+  * Jet Propulsion Laboratory
+  * Supervisor: Leslie K. Tamppari, Nathaniel J. Livesey
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
+* Fall 2015 - Summer 2021: Senior Event Technician
+  * Robsham Theatre Arts Center, Boston College
+  * Supervisor: George Cooke
+
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+*	Extensive experience in group and collaborative environments in several disciplines
+*	Proficient in Microsoft Office and GSuite
+*	Programming Languages
+    - Java
+    - Python
+    - OCaml
+    - C++
+    - Coq
+    - C
+*	Extensive experience with LaTeX and Git
+
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
