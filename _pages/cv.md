@@ -9,30 +9,40 @@ redirect_from:
 
 {% include base_path %}
 
+My resume is best viewed as a [pdf](/files/Ward_Brian_Resume_Sept21.pdf),
+the following is a high-level overview.
+<br/>
+
 Education
 ======
 * B.A. in Computer Science and Theatre, Boston College, 2021
 
 Work experience
 ======
+* Summer 2021 - Present: Software Engineer
+  * Center for Computational Mathematics, Flatiron Institute
+  * Supervisor: Bob Carpenter
+
 * Summer 2020 - Summer 2021: Maximizing Student Potential Intern
   * Jet Propulsion Laboratory
-  * Duties included: Tagging issues
   * Supervisor: Leslie K. Tamppari, Nathaniel J. Livesey
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Fall 2015: Senior Event Technician
+  * Robsham Theatre Arts Center, Boston College
+  * Supervisor: George Cooke
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+*	Extensive experience in group and collaborative environments in several disciplines
+*	Proficient in Microsoft Office and GSuite	
+*	Programming Languages
+  * Java
+  * Python
+  * OCaml
+  * Coq
+  * C
+*	Extensive experience with LaTeX and Git
+
 
 Publications
 ======
