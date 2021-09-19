@@ -14,5 +14,7 @@ at Boston College. My topic of study was a formally verified parser for the lang
 Jean-Baptiste Tristan) to verify a [complete Stan compiler](https://github.com/jtristan/ProbCompCert/tree/pcp).
 
 
-[Download the full document here](/files/Undergrad_Thesis.pdf).
+[Download the full document here](/files/Undergrad_Thesis.pdf). You can also view 
+[some presentation slides](/files/Thesis_Slides.pdf) I prepared on the topic, along with 
+[my notes](/files/Thesis_Slides_Annotated.pdf) on the slides .
 

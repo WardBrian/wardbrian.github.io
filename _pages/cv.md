@@ -11,16 +11,14 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+* B.A. in Computer Science and Theatre, Boston College, 2021
 
 Work experience
 ======
-* Summer 2015: Research Assistant
-  * Github University
+* Summer 2020 - Summer 2021: Maximizing Student Potential Intern
+  * Jet Propulsion Laboratory
   * Duties included: Tagging issues
-  * Supervisor: Professor Git
+  * Supervisor: Leslie K. Tamppari, Nathaniel J. Livesey
 
 * Fall 2015: Research Assistant
   * Github University
@@ -39,18 +37,6 @@ Skills
 Publications
 ======
   <ul>{% for post in site.publications %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
   
