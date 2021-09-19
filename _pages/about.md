@@ -1,15 +1,12 @@
 ---
 permalink: /
-title: "Brian Ward"
+title: "Hi there"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
-
-Hi there
-======
 
 I'm a 2021 graduate from Boston College where I studied computer science and theatre. 
 In the summer of 2021 I joined the Center for Computational Mathematics at the
