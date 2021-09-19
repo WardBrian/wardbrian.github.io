@@ -1,6 +1,6 @@
 ---
 title: "Lighting Design"
-excerpt: "Photos from my past work as a lighting designer for dance and theatre <br/><img src='/images/500x300.png'>"
+excerpt: "Photos from my past work as a lighting designer for dance and theatre <br/><img src='/images/theatre.jpg'>"
 collection: portfolio
 ---
 

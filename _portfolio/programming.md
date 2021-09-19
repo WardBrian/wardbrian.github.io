@@ -1,6 +1,6 @@
 ---
 title: "Programming Projects"
-excerpt: "Personal and academic coding projects<br/><img src='/images/500x300.png'>"
+excerpt: "Personal and academic coding projects"
 collection: portfolio
 ---
 
