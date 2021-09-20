@@ -2,6 +2,7 @@
 title: "Lighting Design"
 excerpt: "Photos from my past work as a lighting designer for dance and theatre <hr/><img src='/images/theatre.jpg'>"
 collection: portfolio
+modified: false
 ---
 
 
