@@ -18,12 +18,12 @@ four adjacent lights.
 
 Randomly generating Lights Out boards has some interesting properties. For a 6x6
 board, any given board is always solveable. For a 5x5 board, only some boards
-are solveable. Solveable boards are all orthogonal to two known vectors (https://doi.org/10.1080%2F0025570X.1998.11996658).
+are solveable. Solveable boards are all orthogonal to two known vectors
+[(Anderson and Feil)](https://doi.org/10.1080%2F0025570X.1998.11996658).
 
 ![Java Lights Out](/images/code/java_lightsout.png)
 
-https://github.com/WardBrian/LightsOut/tree/java/
-
+[View on Github](https://github.com/WardBrian/LightsOut/tree/java/)
 
 # Python Version
 
@@ -33,4 +33,4 @@ TUI library.
 
 ![Python Lights Out](/images/code/python_lightsout.png)
 
-https://github.com/WardBrian/LightsOut/tree/python/
+[View on Github](https://github.com/WardBrian/LightsOut/tree/python/)
