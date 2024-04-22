@@ -17,6 +17,6 @@ to wrap the compiled Stan code in a web interface.
 
 Try it out [here](https://brianward.dev/stan-web-demo/).
 
-<iframe width="100%" src="https://brianward.dev/stan-web-demo/">
+<iframe width="100%" height="1000px" frameBorder="0" src="https://brianward.dev/stan-web-demo/">
 If your browser does not support iframes, click the above link to view the demo.
 </iframe>
