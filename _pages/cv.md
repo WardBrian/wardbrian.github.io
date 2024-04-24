@@ -27,20 +27,21 @@ Work experience
   * Jet Propulsion Laboratory
   * Supervisor: Leslie K. Tamppari, Nathaniel J. Livesey
 
-* Fall 2015: Senior Event Technician
+* Fall 2015 - Summer 2021: Senior Event Technician
   * Robsham Theatre Arts Center, Boston College
   * Supervisor: George Cooke
-  
+
 Skills
 ======
 *	Extensive experience in group and collaborative environments in several disciplines
-*	Proficient in Microsoft Office and GSuite	
+*	Proficient in Microsoft Office and GSuite
 *	Programming Languages
-  * Java
-  * Python
-  * OCaml
-  * Coq
-  * C
+    - Java
+    - Python
+    - OCaml
+    - C++
+    - Coq
+    - C
 *	Extensive experience with LaTeX and Git
 
 
