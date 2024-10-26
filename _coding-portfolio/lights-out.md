@@ -2,6 +2,7 @@
 title: "Lights Out!"
 excerpt: "Two versions of the children's game"
 collection: coding-portfolio
+date: 2022-08-19
 ---
 
 

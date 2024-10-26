@@ -2,6 +2,7 @@
 title: "Stan Web Demo"
 excerpt: "Run Stan models in your browser"
 collection: coding-portfolio
+date: 2024-04-22
 ---
 
 # Stan Web Demo

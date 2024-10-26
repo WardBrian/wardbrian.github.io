@@ -2,6 +2,7 @@
 title: "MLB LED Scoreboard"
 excerpt: "Live MLB scores on a Raspberry Pi"
 collection: coding-portfolio
+date: 2023-09-20
 ---
 
 # MLB LED Scoreboard
