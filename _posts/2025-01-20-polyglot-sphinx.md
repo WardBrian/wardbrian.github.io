@@ -43,8 +43,12 @@ subpage will have roughly the same format:
 - The API documentation
 
 The goal is that this third section will always be generated from
-the source code. It is **not** a goal that these pages look exactly
-the same.
+the source code. Additionally, we'd like this source code to be commented
+in whatever its native format is, both to make it easier for people who are
+familiar with the language to contribute and to keep things like built-in
+help systems working.
+
+It is **not** a goal that these pages look _exactly_ the same.
 
 ## My solution
 
@@ -471,9 +475,6 @@ https://github.com/Genentech/rd2markdown
 
 
 
-
-The reason to jump through these hoops to still use the Rd format
-is that you also will get good documentation in the R help system.
 
 ## Rust
 
