@@ -16,9 +16,10 @@ This is what I call fun.
 
 The fun part gets a little less fun when you want to create a documentation site
 for one of these projects. But, it can be done. I hesitate to say that it can even be
-done in a way that isn't horrible.
+done in a way that isn't horrible. This is more of a family recipe than a cookbook --
+I think everyone's set up will be just different enough to make a true tutorial impossible.
 
-## The set up
+## The project
 
 While >=5 languages is a lot, I expect a lot of people will have to deal with at least
 2, at some point. Any sufficiently advanced Python project will eventually collect some
@@ -49,7 +50,7 @@ the same.
 
 I decided to start with [Sphinx](https://www.sphinx-doc.org/en/master/).
 This tool is likely familiar to many Python users, but it is not as Python-specific
-as it first appears. A crucial thing that sets Sphinx apart is that it is programmable,
+as it first appears. A crucial thing that sets Sphinx apart is that it is _highly_ programmable,
 both through an official extension API, and through the ability to inject whatever
 code you want into the build process through the `conf.py` file.
 
@@ -130,7 +131,7 @@ try:
     # code that imports the extension or tries to run the native tool, e.g.:
     print("Checking C++ doc availability")
     import breathe
-    subprocess.run(["doxygen", "-v"], check=True, capture_output=True)
+    subprocess.run(["doxygen", "-v"], check=True)
 except Exception as e:
     # if we are in a CI environment, we want to know about this
     if RUNNING_IN_CI:
@@ -169,7 +170,7 @@ one of my projects (still in `conf.py`, and note that because these are just var
 declarations they're harmless to put outside the `try` block):
 
 ```python
-# output directory
+# output directory for generated files
 breathe_projects = {"bridgestan": "./_build/cppxml/"}
 breathe_default_project = "bridgestan"
 # where to find your Doxygen-commented code
@@ -284,17 +285,17 @@ using DocumenterMarkdown
 
 makedocs(
     format = Markdown(),
-    repo = "https://github.com/roualdes/bridgestan/blob/main{path}#{line}",
+    repo = "https://github.com/WardBrian/TinyStan/blob/main{path}#{line}",
 )
 
 cp(
     joinpath(@__DIR__, "build/julia.md"),
-    joinpath(@__DIR__, "../../docs/languages/julia.md");
+    joinpath(@__DIR__, "../../../docs/languages/julia.md");
     force = true,
 )
 cp(
     joinpath(@__DIR__, "build/assets/Documenter.css"),
-    joinpath(@__DIR__, "../../docs/_static/css/Documenter.css");
+    joinpath(@__DIR__, "../../../docs/_static/css/Documenter.css");
     force = true,
 )
 ```
@@ -323,7 +324,7 @@ try:
     print("Building Julia doc")
     subprocess.run(
         ["julia", "--project=.", "./make.jl"],
-        cwd=pathlib.Path(__file__).parent.parent / "julia" / "docs",
+        cwd=pathlib.Path(__file__).parent.parent / "clients" / "julia" / "docs",
         check=True,
     )
 except Exception as e:
@@ -355,12 +356,124 @@ which gets reproduced in the Sphinx output. For example:
 
 ## TypeScript (and JavaScript)
 
-https://github.com/jsdoc2md/jsdoc-to-markdown
-https://github.com/mozilla/sphinx-js
+My advice here assumes you've documented your TypeScript code with JSDoc-style comments.
+
+There is a `sphinx-js` [extension from Mozilla](https://github.com/mozilla/sphinx-js) that can
+read JSDoc comments, but it was marked as a public archive during the writing of this post.
+There does appear to be [a fork by the Pyodide project](https://github.com/pyodide/sphinx-js-fork)
+that is still active.
+
+I didn't know about this package before now, so I actually built a different solution,
+based around a tool called [`jsdoc2md`](https://github.com/jsdoc2md/jsdoc-to-markdown).
+Which I guess I will be sticking to, at least until the sphinx-js maintaince status
+is more clear.
+
+My existing solution is pretty similar to the Julia case, where I build a Markdown file
+and copy it into the Sphinx source directory, but it requires a bit more configuration.
+
+First, on the JS side, there are some dev dependencies. Note that the `babel` mentions are
+only necessary if you are using TypeScript, and `@godaddy/dmd` is technically optional,
+but I have found it to greatly improve the output quality.
+
+```json
+  "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@godaddy/dmd": "^1.0.4",
+    "jsdoc-babel": "^0.5.0",
+    "jsdoc-to-markdown": "^9.0.5",
+  }
+```
+(version numbers are just what I have installed, you can probably use newer ones)
+
+And a configuration for jsdoc2md. Again, a lot of it is really only necessary for TS:
+```json
+{
+  "source": {
+    "includePattern": ".+\\.ts(doc|x)?$",
+    "excludePattern": ".+\\.(test|spec).ts"
+  },
+  "template": "language-doc.hbs",
+  "plugins": ["plugins/markdown", "node_modules/jsdoc-babel", "@godaddy/dmd"],
+  "heading-depth": 3,
+  "babel": {
+    "extensions": ["ts", "tsx"],
+    "ignore": ["**/*.(test|spec).ts"],
+    "babelrc": false,
+    "presets": [
+      ["@babel/preset-env", { "targets": { "node": true } }],
+      "@babel/preset-typescript"
+    ],
+    "plugins": []
+  }
+}
+```
+
+The template file `language-doc.hbs` is a [Handlebars](https://handlebarsjs.com/)
+file that gets filled with the output of the jsdoc2md command. A really barebones
+example would just be `{{>main}}`, which includes the main template from the
+`jsdoc-to-markdown` package. I use
+[mine](https://github.com/WardBrian/tinystan/blob/85836d28060892e216b1e66cd100a9a3197f6fc7/clients/typescript/doc/language-doc.hbs)
+to add some installation instructions and the like.
+
+Finally, in package.json, I provide a script which helps run it all:
+
+```json
+  "scripts": {
+    "doc": "jsdoc2md --template ./doc/language-doc.hbs --plugin @godaddy/dmd --heading-depth=3 --configure ./doc/jsdoc2md.json --files src/*.ts "
+  }
+```
+
+Astute readers will notice that there is some duplicated config between this command and
+the json file. At least for the version of jsdoc2md I was using, I couldn't get it to
+read all of the items out of the json file, so some ended up repeated. I left them in the
+json file for clarity and aspirational reasons.
+
+This command will write the Markdown to standard output. The rest of the config occurs in
+`conf.py` to run this command and place the output:
+
+```python
+try:
+    print("Building JS doc")
+    # this allows you to set 'YARN' to 'npm run', for example
+    yarn = os.getenv("YARN", "yarn").split()
+    ret = subprocess.run(
+        yarn + ["--silent", "doc"],
+        cwd=pathlib.Path(__file__).parent.parent / "clients" / "typescript",
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    with open("./languages/js.md", "w") as f:
+        f.write(ret.stdout)
+
+# you know the drill...
+except Exception as e:
+    if RUNNING_IN_CI:
+        raise e
+    else:
+        print("Failed to build JS docs!\n", e)
+```
+
+Assuming you have `myst-parser` installed and listed
+as an extension in `conf.py`, you should be good to go with your (Type|Java)Script docs.
 
 ## R
 
+R is another in this bucket of "get it to generate Markdown" languages, but getting
+it right also requires a bit of post-processing, which makes it more interesting
+than me just linking to another "something2md" package.
+
 https://github.com/Genentech/rd2markdown
+
+
+
+
+
+The reason to jump through these hoops to still use the Rd format
+is that you also will get good documentation in the R help system.
 
 ## Rust
 
@@ -369,12 +482,15 @@ Rust was one of the few items I more or less gave up on, and my documentation
 page was just a link to the docs.rs site which is automatically generated by
 uploading a crate to crates.io.
 
-However, while writing this article, I found [`sphinxcontrib-rust`](https://gitlab.com/munir0b0t/sphinxcontrib-rust).
+However, while writing this article, I found
+[`sphinxcontrib-rust`](https://gitlab.com/munir0b0t/sphinxcontrib-rust).
 This ends up being pretty similar to the doxygen and R cases. It runs a Rust program
 and then produces a Markdown file which Sphinx can read. You can then include this file
-as a section in a larger, hand-written document on the language.
+as a section in a larger, hand-written document on the language if you want a
+`autodoc`-like experience, or use the new Rust directives it adds to craft a more
+hand-made page.
 
-Finding this actually delayed the writing of this article, because I took
+Finding this package actually delayed the writing of this article, because I took
 some time to try it out in BridgeStan. I found a few issues, but the maintainer was
 incredibly responsive and they have all been resolved or sufficiently worked around.
 
@@ -418,3 +534,5 @@ Tip: You can use `:start-line: 2` to skip the `# Crate CRATE_NAME` line that `sp
   file that GitHub Pages needs to serve a folder as raw html.
 
 - force pushing to gh-pages
+
+- versioning
