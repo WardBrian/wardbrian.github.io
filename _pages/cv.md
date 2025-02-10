@@ -34,15 +34,13 @@ Work experience
 Skills
 ======
 *	Extensive experience in group and collaborative environments in several disciplines
-*	Proficient in Microsoft Office and GSuite
-*	Programming Languages
+*	Programming Languages:
     - Java
     - Python
     - OCaml
     - C++
     - Coq
     - C
-*	Extensive experience with LaTeX and Git
 
 
 Publications
