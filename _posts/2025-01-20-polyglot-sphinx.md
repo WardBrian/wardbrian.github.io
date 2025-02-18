@@ -680,3 +680,13 @@ here are some bonus tips:
   - Release: [updating version metadata](https://github.com/roualdes/bridgestan/blob/main/docs/add_version.py)
   - Release: [running docs action](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/release.yaml#L137-L143)
   - [Docs CI](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/docs.yaml)
+
+## Fin
+
+My hope is that these trail markers will help someone forging their own path
+through the documentation forest. While each of them ends up being finnicky in its own way,
+the general structure of adding a new language is pretty streamlined in this style, and
+the end result is quite satisfying.
+
+If you find an problem with the above, or want to suggest a better way, please [open an issue](https://github.com/WardBrian/wardbrian.github.io/issues/new).
+I can't guarantee _support_, per se, but if I can I will try to keep this post as a living document over time.
