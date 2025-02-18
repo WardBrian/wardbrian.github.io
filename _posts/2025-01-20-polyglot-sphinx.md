@@ -550,16 +550,16 @@ for (f in files){
 
 oh.
 
-I mean, it certainly isn't horrible, it's also a bit hackier than the others.
+I mean, it certainly isn't horrible, but it's certainly a bit hackier than the others.
 This is also the result of a lot of trial and error, so it's considerably _less_
 hacky than it once was.
 
-First: we run `roxygenize` to make sure our Rd files are actually up to date
+First: we run `roxygenize` to make sure our `.Rd` files are actually up to date
 in our `man` directory. Then, we'd like to loop over all of them, but, in general,
 you may have private/unexported functions that you don't want to document. So,
 we check if each name is in the `NAMESPACE` file, and skip it if not.
 
-Finally, we read the Rd file, convert it to markdown, and write it to the `docs`
+Finally, we read each `.Rd` file, convert it to markdown, and write it to the `docs`
 directory. Because this will be embedded in a larger document, we increase the depth
 of the markdown headers. As noted in the comment, this may become unnecessary one day.
 
@@ -592,7 +592,7 @@ in a standard markdown file in my Sphinx source, and include the generated API d
 If you happen to have an API that uses an [R6 class](https://r6.r-lib.org/index.html),
 you will find that the generated markdown includes a table of methods
 at the top with broken links. I've found the easiest thing to do is
-just delete this in the conf.py file, e.g.:
+just delete this in `conf.py` after calling the above R script, e.g.:
 
 ```python
     # delete some broken links in the generated R docs
@@ -674,6 +674,6 @@ here are some bonus tips:
   by serving the site from a subdirectory. On merges to `main`/`trunk`, this should be `latest` (or `development`),
   and then your release action can build with a specific version and update the `versions.json` file.
   See BridgeStan's CI for this in action:
-    + Release: [updating version metadata](https://github.com/roualdes/bridgestan/blob/main/docs/add_version.py)
-    + Release: [running docs action](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/release.yaml#L137-L143)
-    + [Docs CI](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/docs.yaml)
+  - Release: [updating version metadata](https://github.com/roualdes/bridgestan/blob/main/docs/add_version.py)
+  - Release: [running docs action](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/release.yaml#L137-L143)
+  - [Docs CI](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/docs.yaml)
