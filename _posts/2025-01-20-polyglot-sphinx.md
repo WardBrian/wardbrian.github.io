@@ -161,12 +161,13 @@ of those pages, which is fine for a user who isn't working on them.
 
 ## Doxygen family: C, C++, Fortran, etc.
 
-Doxygen supports a surprising number^["C, Python, PHP, Java, C#, Objective-C, Fortran, VHDL, Splice, IDL, and Lex", according to their homepage]
-of languages, but most often I see it used for C and C++.
+Doxygen supports a surprising number of languages
+("C, Python, PHP, Java, C#, Objective-C, Fortran, VHDL, Splice, IDL, and Lex", according to their homepage),
+but most often I see it used for C and C++.
 
-The `breathe` extension is _the_ best option for any Doxygen-using code. It produces
-the nicest looking output of any of the tools I will describe in this post, rivialing the
-built-in Python support.
+The [`breathe` extension](https://breathe.readthedocs.io/en/latest/) is _the_ best option for any
+Doxygen-using code. It produces the nicest looking output of any of the tools I will describe in
+this post, rivialing the built-in Python support.
 
 I also showed the majority of the configuration you will need in the tip above.
 Besides checking that the library and `doxygen` executable are available, you
