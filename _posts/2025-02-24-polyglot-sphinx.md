@@ -17,7 +17,7 @@ This is what I call fun.
 The fun part gets a little less fun when you want to create a documentation site
 for one of these projects. But, it can be done. I might even dare to say that it can be
 done in a way that isn't horrible. This is more of a family recipe than a cookbook --
-I think everyone's set up will be just different enough to make a true tutorial impossible.
+I think everyone's set-up will be just different enough to make a true tutorial impossible.
 
 ## The project
 
@@ -26,7 +26,7 @@ While >=5 languages is a lot, I expect a lot of people will have to deal with at
 compiled code, and many scientific projects will start out in C++ or Fortran before
 realizing the users are in Python or Julia, and they need some wrappers.
 
-In my cases, I have had a C++ core and wrappers in (some subset of):
+In my cases, I have had a C++ core and wrappers in (some subset of)
 Python, R, Julia, TypeScript, and Rust.
 
 Each of these languages has its own documentation style and native tools for emitting it
@@ -627,7 +627,7 @@ However, while writing this article, I found
 [`sphinxcontrib-rust`](https://gitlab.com/munir0b0t/sphinxcontrib-rust).
 This ends up being pretty similar to the doxygen and R cases. It runs a Rust program
 and then produces a Markdown file which Sphinx can read. You can then include this file
-as a section in a larger, hand-written document on the language if you want a
+as a section in a larger, hand-written document on the language if you want an
 `autodoc`-like experience, or use the new Rust directives it adds to craft a more
 hand-made page.
 
@@ -696,7 +696,7 @@ here are some bonus tips:
 ## Go out and cook
 
 Like any recipe, you will learn much more the first time you try it yourself
-than you ever could from reading it. While each of them ends up being finnicky
+than you ever could from reading it. While each of them ends up being finicky
 in its own way, the general structure of adding a new language is pretty
 streamlined in this style, and the end result is quite satisfying.
 
