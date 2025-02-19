@@ -1,6 +1,6 @@
 ---
 title: "Polyglot Sphinx Documentation"
-date: 2125-03-20 # TODO change to publish
+date: 2125-02-24 # TODO change to publish
 permalink: /blog/2025/03/polyglot-sphinx
 tags:
   - documentation
