@@ -15,7 +15,7 @@ pleasure of working on a couple projects with code in 5 or more languages at onc
 This is what I call fun.
 
 The fun part gets a little less fun when you want to create a documentation site
-for one of these projects. But, it can be done. I hesitate to say that it can even be
+for one of these projects. But, it can be done. I might even dare to say that it can be
 done in a way that isn't horrible. This is more of a family recipe than a cookbook --
 I think everyone's set up will be just different enough to make a true tutorial impossible.
 
@@ -29,12 +29,12 @@ realizing the users are in Python or Julia, and they need some wrappers.
 In my cases, I have had a C++ core and wrappers in (some subset of):
 Python, R, Julia, TypeScript, and Rust.
 
-Each of these languages has its own documentation style and native tools. But I
-want one website to host the output of all of them.
+Each of these languages has its own documentation style and native tools for emitting it
+in various formats. But I want one unified way to generate a website which documents all of them.
 
 ## The goal
 
-Eventually, we'd like a website that has a "languages" page.
+Eventually, we'd like a website that has [a "languages" page](https://roualdes.github.io/bridgestan/latest/languages.html).
 This page will have one subpage for each language, and that
 subpage will have roughly the same format:
 
@@ -43,20 +43,21 @@ subpage will have roughly the same format:
 - The API documentation
 
 The goal is that this third section will always be generated from
-the source code. Additionally, we'd like this source code to be commented
-in whatever its native format is, both to make it easier for people who are
-familiar with the language to contribute and to keep things like built-in
-help systems working.
+the source code. Additionally, we'd like this source code to be annotated
+following the standard practices for the specific language it is written in.
+Doing so makes it easier for people who are familiar with a given language to
+contribute, and it keeps things like built-in help systems working.
 
 It is **not** a goal that these pages look _exactly_ the same.
 
 ## My solution
 
-I decided to start with [Sphinx](https://www.sphinx-doc.org/en/master/).
+I decided to start with [Sphinx](https://www.sphinx-doc.org/).
 This tool is likely familiar to many Python users, but it is not as Python-specific
 as it first appears. A crucial thing that sets Sphinx apart is that it is _highly_ programmable,
 both through an official extension API, and through the ability to inject whatever
-code you want into the build process through the `conf.py` file.
+code you want into the documentation build process through
+[Sphinx's `conf.py` file](https://www.sphinx-doc.org/en/master/usage/configuration.html).
 
 Therefore, all you need to do to get a Polygot Sphinx site is the same as a polyglot human:
 teach it a lot of languages.
@@ -64,26 +65,26 @@ teach it a lot of languages.
 The basics for a new language are:
 
 - Investigate if the language has a Sphinx extension. For example, any Doxygen-using
-  code can be documented with [breathe](https://breathe.readthedocs.io/en/latest/).
+  code can be documented with [breathe](https://breathe.readthedocs.io/).
 - If not, see if you can output the documentation in a format that Sphinx can understand.
-  Natively this is reStructuredText, but the [myst-parser](https://myst-parser.readthedocs.io/en/latest/)
+  Natively this is reStructuredText, but the [myst-parser](https://myst-parser.readthedocs.io/)
   extension adds support for a pretty wide range of Markdown-like formats, which ends up being more
   useful for this task.
 - If the above don't already exist, you can either write your own, or bail out to generating web pages
   and either embedding them in the Sphinx site, or simply linking to them.
 
-| Language   | Native Tool   | Sphinx Extension       | Markdown Outputting Tool                               |
-| ---------- | ------------- | ---------------------- | ------------------------------------------------------ |
-| C++        | Doxygen       | breathe                | several, none that are well-regarded enough to mention |
-| Python     | Sphinx        | (builtin)              | pydoc-markdown                                         |
-| Julia      | Documenter.jl | Sphinx-Julia (broken!) | DocumenterMarkdown.jl                                  |
-| TypeScript | JSDoc         | sphinx-js              | jsdoc2md                                               |
-| R          | roxygen2      | -                      | rd2markdown                                            |
-| Rust       | rustdoc       | sphinxcontrib-rust     | ish: cargo-readme, cargo-doc2readme                    |
+| Language   | Native Tool                                       | Sphinx Extension                                                      | Markdown Outputting Tool                                                                                                   |
+| ---------- | ------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| C++        | [Doxygen](https://www.doxygen.nl/)                | [breathe](https://breathe.readthedocs.io)                             | several, none that are well-regarded enough to mention                                                                     |
+| Python     | [Sphinx](https://www.sphinx-doc.org/)             | (builtin)                                                             | similarly, several options depending on docstring style                                                                    |
+| Julia      | [Documenter.jl](https://documenter.juliadocs.org) | Sphinx-Julia (broken!)                                                | [DocumenterMarkdown.jl](https://documentermarkdown.juliadocs.org)                                                          |
+| TypeScript | [JSDoc](https://jsdoc.app/)                       | [sphinx-js](https://github.com/mozilla/sphinx-js)                     | [jsdoc2md](https://github.com/jsdoc2md/jsdoc-to-markdown)                                                                  |
+| R          | [roxygen2](https://roxygen2.r-lib.org/)           | -                                                                     | [rd2markdown](https://github.com/Genentech/rd2markdown)                                                                    |
+| Rust       | [rustdoc](https://doc.rust-lang.org/rustdoc/)     | [sphinxcontrib-rust](https://gitlab.com/munir0b0t/sphinxcontrib-rust) | ish: [cargo-readme](https://github.com/webern/cargo-readme), [cargo-doc2readme](https://github.com/msrd0/cargo-doc2readme) |
 
-Note that the fact that the final column is mostly complete means that
-people seeking to use non-Sphinx tools, that can read Markdown, still have
-a good chance of success, but the exact tips I give here may not apply.
+Note that the final column is mostly complete -- meaning that
+people seeking to use Markdown-friendly (non-Sphinx) tool still have
+a good chance of success, even if the exact tips I give here may not apply.
 
 The rest of this work is a series of tips, tricks, and code snippets for each of the
 languages I have worked with. I hope it helps!
@@ -115,11 +116,11 @@ are just hoping to get a site up and running, here are some good extensions:
 ## General tip: Making a language optional
 
 Any polygot project is liable to end up with developers who are only interested in one
-of the languages. It's nice if they don't have to be able to install all the others to
+of the languages. It's nice if they don't have to install all the others to
 edit and build the documentation.
 
 I use a common idiom for this in the couple projects I maintain. The `conf.py` fails
-gracefully on missing dependencies, unless the build is happening in a CI environment.
+gracefully on missing dependencies, _unless_ the build is happening in a CI environment.
 
 For example:
 
@@ -138,7 +139,7 @@ try:
     import breathe
     subprocess.run(["doxygen", "-v"], check=True)
 except Exception as e:
-    # if we are in a CI environment, we want to know about this
+    # if we are in a CI environment, we want to know that we're missing a dependency
     if RUNNING_IN_CI:
         raise e
     else:
@@ -152,12 +153,13 @@ else:
 # LANGUAGE B ...
 ```
 
-The user will still need Sphinx and its Python dependencies, but they won't need
-the complete set of tools for every language you support just to build the docs.
+A would-be contributor will still need Sphinx and its Python dependencies,
+but they won't need the complete set of tools for every language supported by
+the project just to build the docs.
 
 This also works well if the markdown outputs of languages without Sphinx support
-are checked into the repository -- the build will just use (possibly stale) versions
-of those pages, which is fine for a user who isn't working on them.
+are checked into the repository -- the build will just use (possibly stale)
+checked-in versions of those pages, which is fine for a user who isn't working on them.
 
 ## Doxygen family: C, C++, Fortran, etc.
 
@@ -167,7 +169,7 @@ but it is the "default" tool for C and C++.
 
 The [`breathe` extension](https://breathe.readthedocs.io/en/latest/) is _the_ best option for any
 Doxygen-using code. It produces the nicest looking output of any of the tools I will describe in
-this post, rivialing the built-in Python support.
+this post, rivaling the built-in Python support.
 
 I also showed the majority of the configuration you will need in the tip above.
 Besides checking that the library and `doxygen` executable are available, you
@@ -197,12 +199,16 @@ are using Doxygen for your project, but the above should get you pretty far.
 
 ### Bonus tip: Macro preprocessing
 
-If your C(++) code has macros, you might get better results by enabling some [preprocessing
-in Doxygen](https://www.doxygen.nl/manual/preprocessing.html) through some extra configuration in `conf.py`.
+If your C(++) code has macros, especially ones that expand to `__attribute` or other items that change
+the signature of the function you're documenting, you may find that these degrade the appearance of the
+result from Doxygen. In these cases, you might get better results by enabling some [preprocessing
+in Doxygen](https://www.doxygen.nl/manual/preprocessing.html) through some extra configuration in `conf.py`
+and making them expand to something more friendly, such as the empty string.
 
 For example, BridgeStan has a `BS_PUBLIC` macro which is used to mark functions
-as exported from a shared library. Doxygen doesn't like the `__attribute` and `__declspec`
-attributes that this expands to by default, so we use the following to define it away:
+as exported from a shared library (using `__attribute` and `__declspec`). The
+following configuration in `conf.py` tells Doxygen to preprocess the code before
+parsing, and in particular to replace `BS_PUBLIC` with nothing:
 
 ```python
 breathe_doxygen_config_options = {
@@ -233,13 +239,13 @@ intersphinx_mapping = {
 }
 ```
 
-Now, a directive like
+Now, a [cross-reference directive](https://www.sphinx-doc.org/en/master/usage/domains/python.html#cross-referencing-python-objects) like
 
 ```rst
 :py:func:`os.path.join`
 ```
 
-will link directly to the Python documentation.
+will link directly to the Python documentation for `os.path.join()` on docs.python.org.
 
 ### Autodoc
 
@@ -265,8 +271,9 @@ Julia is the first language in the "Get it to generate Markdown" category. There
 is a `Sphinx-Julia` package in existence, but it was last substantially updated in 2018,
 and I have been unable to get it to work with modern versions of Sphinx.
 
-Luckily, Julia makes this task relatively easy. Julia packages typically use the
-`Documenter.jl` package to generate documentation, and there is a
+Luckily, Julia makes the task of generating markdown relatively easy. Julia packages
+typically use the [`Documenter.jl`](https://documenter.juliadocs.org) package to
+generate documentation, and there is a
 [`DocumenterMarkdown.jl`](https://github.com/JuliaDocs/DocumenterMarkdown.jl)
 package that can be asked to generate Markdown files which have been processed,
 e.g. by expanding `@docs` sections and linking to the source code. This plays
@@ -306,7 +313,7 @@ cp(
 )
 ```
 
-On the Sphinx side, you'll now need the `myst-parser` extension to read the Markdown,
+Back in Sphinx's `conf.py`, you'll now need the `myst-parser` extension to read the Markdown,
 and to make sure the Documenter css is included:
 
 ```python
@@ -348,15 +355,15 @@ there is one downside: There will be two `julia.md` files in your repository. On
 source, will be in the directory of your Julia package, and the other, which is overwritten on
 build, will be in the Sphinx directory.
 
-To help people keep this straight, I add a note to the top of the source file in a `@raw html` block,
-which gets reproduced in the Sphinx output. For example:
+To help people keep this straight, I add a note to the top of the source Markdown
+file in a `@raw html` block, which gets reproduced in the Sphinx output. For example:
 
 ````markdown
 ```@raw html
 % NB: If you are reading this file in docs/languages, you are reading a generated output!
 % This should be apparent due to the html tags everywhere.
 % If you are reading this in julia/docs/src, you are reading the true source!
-% Please only make edits in the later file, since the first is DELETED each re-build.
+% Please only make edits in the julia/docs/src file, since the first is DELETED each re-build.
 ```
 ````
 
@@ -371,15 +378,16 @@ that is still active.
 
 I didn't know about this package before now, so I actually built a different solution,
 based around a tool called [`jsdoc2md`](https://github.com/jsdoc2md/jsdoc-to-markdown).
-Which I guess I will be sticking to, at least until the sphinx-js maintaince status
+Which I guess I will be sticking to, at least until the sphinx-js maintenance status
 is more clear.
 
 My existing solution is pretty similar to the Julia case, where I build a Markdown file
 and copy it into the Sphinx source directory, but it requires a bit more configuration.
 
-First, on the JS side, there are some dev dependencies. Note that the `babel` mentions are
-only necessary if you are using TypeScript, and `@godaddy/dmd` is technically optional,
-but I have found it to greatly improve the output quality.
+First, there are some JavaScript developer dependencies for your `package.json`.
+Note that the `babel` mentions are only necessary if you are using TypeScript,
+and `@godaddy/dmd` is technically optional, but I have found it to greatly improve
+the quality of the rendered output.
 
 ```json
   "devDependencies": {
@@ -395,7 +403,8 @@ but I have found it to greatly improve the output quality.
 
 (version numbers are just what I have installed, you can probably use newer ones)
 
-And a configuration for jsdoc2md. Again, a lot of it is really only necessary for TS:
+And a configuration file for jsdoc2md. I have this live in a `doc` sub-folder of
+the TypeScript client. Again, a lot of it is really only necessary for TS:
 
 ```json
 {
@@ -419,7 +428,8 @@ And a configuration for jsdoc2md. Again, a lot of it is really only necessary fo
 }
 ```
 
-The template file `language-doc.hbs` is a [Handlebars](https://handlebarsjs.com/)
+The template file `language-doc.hbs` (also in this `typescript/doc/` directory)
+is a [Handlebars](https://handlebarsjs.com/)
 file that gets filled with the output of the jsdoc2md command. A really barebones
 example would just be `{{>main}}`, which includes the main template from the
 `jsdoc-to-markdown` package. I use
@@ -488,7 +498,7 @@ Anyway, while `rd2markdown` is on CRAN, the development version on GitHub is mor
 so I assume that version in the following instructions.
 
 In contrast to my general flow here, I'm actually going to start by showing the `conf.py`
-code, and then the R configuration.
+code:
 
 ```python
 try:
@@ -507,8 +517,8 @@ except Exception as e:
         print("Failed to build R docs!\n", e)
 ```
 
-So, at this level, it looks almost exactly like Julia. Assuming that `convert_docs.R`
-isn't too bad ...
+So, at this level, it looks almost exactly like Julia. Assuming that the
+`convert_docs.R` script it is calling in my R client directory isn't too bad ...
 
 ```R
 # Converts R documentation (.Rd) files to markdown (.md) files for use in
@@ -566,7 +576,7 @@ of the markdown headers. As noted in the comment, doing this manually may become
 unnecessary one day.
 
 Unlike the others so far (though [spoilers!] _like_ Rust), I don't try to get the top-level
-doc (installtion instructions, example, etc) into this system. Instead, I write those
+doc (installation instructions, example, etc) into this system. Instead, I write those
 in a standard markdown file in my Sphinx source, and include the generated API docs, e.g.:
 
 ````markdown
@@ -623,7 +633,7 @@ hand-made page.
 
 Finding this package actually delayed the writing of this article, because I took
 some time to try it out in BridgeStan. I found a few issues, but the maintainer was
-incredibly responsive and they have all been resolved or sufficiently worked around.
+incredibly responsive and the issues have all been resolved or sufficiently worked around.
 
 So, you know the drill. Here's what I have in `conf.py`:
 
@@ -669,24 +679,28 @@ here are some bonus tips:
   file that GitHub Pages needs to serve a folder as raw html.
 
 - I highly recommend force-pushing to the gh-pages branch in your CI job that re-builds
-  the documentation. This prevents your `.git` folder from growing in size storing
-  old commits of the documentation.
+  the documentation. This prevents your `.git` folder from growing in size due to storing
+  old commits of the built documentation. As a general rule, you never need this output, since
+  it should be reproducible from the commit that triggered the rebuild (your build is determinstic, _right_?).
 
 - If you took my earlier advice and are using pydata-sphinx-theme, it's relatively
   simple to use their [version-picker](https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html)
-  by serving the site from a subdirectory. On merges to `main`/`trunk`, this should be `latest` (or `development`),
-  and then your release action can build with a specific version and update the `versions.json` file.
+  by serving the site from a subdirectory. On merges to `main`/`trunk`, you can delete and re-create
+  a folder called something like `latest`, or `development`, and during releases the release action
+  can build a copy in the directory named after the new version and update the `versions.json` file.
   See BridgeStan's CI for this in action:
   - Release: [updating version metadata](https://github.com/roualdes/bridgestan/blob/main/docs/add_version.py)
   - Release: [running docs action](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/release.yaml#L137-L143)
   - [Docs CI](https://github.com/roualdes/bridgestan/blob/main/.github/workflows/docs.yaml)
 
-## Fin
+## Go out and cook
 
-My hope is that these trail markers will help someone forging their own path
-through the documentation forest. While each of them ends up being finnicky in its own way,
-the general structure of adding a new language is pretty streamlined in this style, and
-the end result is quite satisfying.
+Like any recipe, you will learn much more the first time you try it yourself
+than you ever could from reading it. While each of them ends up being finnicky
+in its own way, the general structure of adding a new language is pretty
+streamlined in this style, and the end result is quite satisfying.
 
-If you find an problem with the above, or want to suggest a better way, please [open an issue](https://github.com/WardBrian/wardbrian.github.io/issues/new).
-I can't guarantee _support_, per se, but if I can I will try to keep this post as a living document over time.
+If you find a problem with the above, or want to suggest a better way, please
+[open an issue](https://github.com/WardBrian/wardbrian.github.io/issues/new).
+I can't guarantee _support_, per se, but if I can I will try to keep this post as
+a living document over time.
