@@ -94,8 +94,8 @@ The examples are all taken from either the
 [BridgeStan](https://github.com/roualdes/bridgestan) or [TinyStan](https://github.com/WardBrian/tinystan) projects.
 If you just want to see what the output looks like, you can browse the language sections of both sites:
 
-- https://roualdes.github.io/bridgestan/latest/languages.html
-- https://brianward.dev/tinystan/latest/languages.html
+- [https://roualdes.github.io/bridgestan/latest/languages.html](https://roualdes.github.io/bridgestan/latest/languages.html)
+- [https://brianward.dev/tinystan/latest/languages.html](https://brianward.dev/tinystan/latest/languages.html)
 
 ## General tip: Good Sphinx defaults
 
