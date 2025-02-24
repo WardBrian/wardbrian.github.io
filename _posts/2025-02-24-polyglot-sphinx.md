@@ -8,7 +8,7 @@ tags:
   - programming languages
 ---
 
-# Polyglot Sphinx Documentation: User report from documenting too many languages
+# A user report from documenting too many languages
 
 I like programming languages. The more of them the better. I have even had the
 pleasure of working on a couple projects with code in 5 or more languages at once.
