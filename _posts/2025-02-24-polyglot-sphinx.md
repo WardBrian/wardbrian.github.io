@@ -1,10 +1,11 @@
 ---
 title: "Polyglot Sphinx Documentation"
-date: 2125-02-24 # TODO change to publish
-permalink: /blog/2025/03/polyglot-sphinx
+date: 2025-02-24
+permalink: /blog/2025/02/polyglot-sphinx
 tags:
   - documentation
   - tips and tricks
+  - programming languages
 ---
 
 # Polyglot Sphinx Documentation: User report from documenting too many languages
@@ -83,7 +84,7 @@ The basics for a new language are:
 | Rust       | [rustdoc](https://doc.rust-lang.org/rustdoc/)     | [sphinxcontrib-rust](https://gitlab.com/munir0b0t/sphinxcontrib-rust) | ish: [cargo-readme](https://github.com/webern/cargo-readme), [cargo-doc2readme](https://github.com/msrd0/cargo-doc2readme) |
 
 Note that the final column is mostly complete -- meaning that
-people seeking to use Markdown-friendly (non-Sphinx) tool still have
+people seeking to use Markdown-friendly (non-Sphinx) tools still have
 a good chance of success, even if the exact tips I give here may not apply.
 
 The rest of this work is a series of tips, tricks, and code snippets for each of the
@@ -681,7 +682,7 @@ here are some bonus tips:
 - I highly recommend force-pushing to the gh-pages branch in your CI job that re-builds
   the documentation. This prevents your `.git` folder from growing in size due to storing
   old commits of the built documentation. As a general rule, you never need this output, since
-  it should be reproducible from the commit that triggered the rebuild (your build is determinstic, _right_?).
+  it should be reproducible from the commit that triggered the rebuild (your build is deterministic, _right_?).
 
 - If you took my earlier advice and are using pydata-sphinx-theme, it's relatively
   simple to use their [version-picker](https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/version-dropdown.html)
@@ -696,8 +697,8 @@ here are some bonus tips:
 ## Go out and cook
 
 Like any recipe, you will learn much more the first time you try it yourself
-than you ever could from reading it. While each of them ends up being finicky
-in its own way, the general structure of adding a new language is pretty
+than you ever could from reading it. While each language ends up being finicky
+in its own way, the general structure of adding a new one is pretty
 streamlined in this style, and the end result is quite satisfying.
 
 If you find a problem with the above, or want to suggest a better way, please
